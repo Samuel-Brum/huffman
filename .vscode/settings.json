@@ -1,0 +1,13 @@
+{
+  "makefile.launchConfigurations": [
+    {
+      "cwd": "/home/sam_brum/Documents/UFMG/Graduação - Computação /2023-1/Estrutura de Dados/Trabalho Prático 3/TP/bin",
+      "binaryPath": "/home/sam_brum/Documents/UFMG/Graduação - Computação /2023-1/Estrutura de Dados/Trabalho Prático 3/TP/bin/huffman",
+      "binaryArgs": []
+    }
+  ],
+  "files.associations": {
+    "sstream": "cpp",
+    "regex": "cpp"
+  }
+}
