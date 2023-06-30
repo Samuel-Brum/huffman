@@ -11,7 +11,32 @@ void lerArquivo(string path, string &s)
   s = temp;
 }
 
-HuffNode* charFreq(string texto, HuffNode* mapa) 
+void insertionSort(HuffNode* dict) 
+{
+  int size = 0;
+  while (dict[size].c != '\0')
+  {
+    size++;
+  }
+
+  int i, j;
+  HuffNode key;
+  for (int i = 1; i < size; i++)
+  {
+    key = dict[i];
+    j = i - 1;
+
+    while (j >= 0 && dict[j].freq > key.freq) 
+    {
+      dict[j+1].freq = dict[j].freq;
+      dict[j+1].c = dict[j].c;
+      j = j - 1;
+    }
+    dict[j+1] = key;
+  }
+}
+
+HuffNode* charFreq(string texto, HuffNode* dict) 
 {
   int numeroDeChars = 0;
 
@@ -21,7 +46,7 @@ HuffNode* charFreq(string texto, HuffNode* mapa)
     int index = 0;
     for (int i = 0; i < numeroDeChars + 1; i++) 
     {
-      if (mapa[i].c == *it) 
+      if (dict[i].c == *it) 
       {
         index = i;
         found = true;
@@ -30,13 +55,16 @@ HuffNode* charFreq(string texto, HuffNode* mapa)
 
     if (!found) 
     {
-      mapa[numeroDeChars].c = *it;
-      mapa[numeroDeChars].freq++;
+      dict[numeroDeChars].c = *it;
+      dict[numeroDeChars].freq++;
       numeroDeChars++;
     } else
     {
-      mapa[index].freq++;
+      dict[index].freq++;
     }
   }
-  return mapa;
+  insertionSort(dict);
+  return dict;
 }
+
+
