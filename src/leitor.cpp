@@ -1,5 +1,4 @@
 #include "leitor.hpp"
-#include "hufftree.hpp"
 
 void lerArquivo(string path, string &s) 
 {
@@ -11,32 +10,7 @@ void lerArquivo(string path, string &s)
   s = temp;
 }
 
-void insertionSort(HuffNode* dict) 
-{
-  int size = 0;
-  while (dict[size].c != '\0')
-  {
-    size++;
-  }
-
-  int i, j;
-  HuffNode key;
-  for (int i = 1; i < size; i++)
-  {
-    key = dict[i];
-    j = i - 1;
-
-    while (j >= 0 && dict[j].freq > key.freq) 
-    {
-      dict[j+1].freq = dict[j].freq;
-      dict[j+1].c = dict[j].c;
-      j = j - 1;
-    }
-    dict[j+1] = key;
-  }
-}
-
-HuffNode* charFreq(string texto, HuffNode* dict) 
+void charFreq(string texto, HuffNode* dict) 
 {
   int numeroDeChars = 0;
 
@@ -64,7 +38,36 @@ HuffNode* charFreq(string texto, HuffNode* dict)
     }
   }
   insertionSort(dict);
-  return dict;
+}
+
+/// @brief Implementação de insertion sort para frequências de cada caractere
+/// @param dict Dicionário com chave caractére e valor frequência
+/// @return Dicionário ordenado em ordem crescente
+void insertionSort(HuffNode* dict) 
+{
+  int size = 0;
+  while (dict[size].c != '\0')
+  {
+    size++;
+  }
+  
+  int i , j;
+  HuffNode key;
+  for (i = 1; i < size; i++)
+  {
+    key = dict[i];
+    j = i - 1;
+
+    while (j >= 0 && dict[j].freq < key.freq) 
+    {
+      dict[j+1].freq = dict[j].freq;
+      dict[j+1].c = dict[j].c;
+      dict[j+1].esq = dict[j].esq;
+      dict[j+1].dir = dict[j].dir;
+      j = j - 1;
+    }
+    dict[j+1] = key;
+  }
 }
 
 

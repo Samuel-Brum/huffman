@@ -6,7 +6,6 @@
 #include <sstream>
 
 #include "hufftree.hpp"
-#include "vetor.hpp"
 
 using namespace std;
 
@@ -16,14 +15,14 @@ using namespace std;
 /// @return String com conteúdos do arquivo
 void lerArquivo(string path, string &s);
 
-/// @brief Implementação de insert sort para frequências de cada caractere
-/// @param dict Dicionário com chave caractére e valor frequência
-/// @return Dicionário ordenado em ordem crescente
-void insertionSort(HuffNode* dict);
-
 /// @brief Calcula a frequência de cada caractere em uma string
 /// @param texto String a ser analisada
 /// @return Array ordenado de caracteres e suas frequências, em ordem crescente
-HuffNode* charFreq(string texto, HuffNode* dict);
+void charFreq(string texto, HuffNode* dict);
+
+/// @brief Implementação de insertion sort para frequências de cada caractere
+/// @param dict Dicionário com chave caractére e valor frequência
+/// @return Dicionário ordenado em ordem crescente
+void insertionSort(HuffNode* dict);
 
 #endif
