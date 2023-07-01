@@ -40,9 +40,6 @@ void charFreq(string texto, HuffNode* dict)
   insertionSort(dict);
 }
 
-/// @brief Implementação de insertion sort para frequências de cada caractere
-/// @param dict Dicionário com chave caractére e valor frequência
-/// @return Dicionário ordenado em ordem crescente
 void insertionSort(HuffNode* dict) 
 {
   int size = 0;

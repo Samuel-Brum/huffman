@@ -1,6 +1,8 @@
 #ifndef HUFFTREE_HPP
 #define HUFFTREE_HPP
 
+#include <string>
+
 /// @brief Nós da árvore do código de Huffman
 struct HuffNode 
 {
@@ -21,10 +23,12 @@ struct HuffNode
 /// @brief 
 /// @param dict 
 /// @return 
-HuffNode* huffman(HuffNode* dict);
+void huffman(HuffNode* dict);
+
 
 /// @brief 
 /// @param raiz 
-void printTree(HuffNode raiz);
+/// @param code 
+void huffCode(HuffNode raiz, std::string &code, std::string &temp);
 
 #endif

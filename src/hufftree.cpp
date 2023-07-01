@@ -3,7 +3,7 @@
 #include "hufftree.hpp"
 #include "leitor.hpp"
 
-HuffNode* huffman(HuffNode* dict) 
+void huffman(HuffNode* dict) 
 {
   int size = 0;
   while (dict[size].c != '\0')
@@ -43,6 +43,24 @@ HuffNode* huffman(HuffNode* dict)
     insertionSort(dict);
     size--;
   }
-  return dict;
 }
 
+void huffCode(HuffNode raiz, string &code, string &temp) 
+{
+  if (raiz.esq != nullptr)
+  {
+    temp.append("0");
+    huffCode(*raiz.esq, code, temp);
+  } 
+  if (raiz.dir != nullptr)
+  {
+    temp.append("1");
+    huffCode(*raiz.dir, code, temp);
+  }
+  if (raiz.esq == nullptr && raiz.dir == nullptr)
+  {
+    code.push_back(raiz.c);
+    code.append(temp);
+  }
+  temp.pop_back();
+}
