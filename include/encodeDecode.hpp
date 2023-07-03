@@ -12,7 +12,7 @@ using namespace std;
 /// @param texto 
 /// @param file 
 /// @return 
-int encode(string code, string texto, ifstream &file);
+int encode(string code, string texto, ofstream &file);
 
 /// @brief 
 /// @param file 

@@ -40,5 +40,6 @@ int main(int argc, char* argv[])
   //cout << convert(code, textoManual) << endl;
   string comp = convert(code, textoManual);
   cout << (((float) comp.length() / 8) + code.length() + 2)/ textoManual.length() << endl;
-  
+  ofstream saida ("test/Test-Files/huffman-comprimido.txt", ios::binary);
+  encode(code, textoManual, saida);
 }

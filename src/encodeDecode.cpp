@@ -6,8 +6,10 @@ int encode(string code, string texto, ofstream &file)
 {
   unsigned int texto_size = texto.length();
   unsigned int code_size = code.length();
-  
+
   string encoded = convert(code, texto);
+
+  unsigned int encoded_size = encoded.length();
 
   if (!file)
   {
@@ -16,8 +18,40 @@ int encode(string code, string texto, ofstream &file)
   } 
   else
   {
+    file.write((char*) &encoded_size, sizeof(encoded_size));
+    file.write((char*) &code_size, sizeof(code_size));
+    file.write((char*) &texto_size, sizeof(texto_size));
 
+    int buff_size = 0;
+    string buffer;
+    for (auto it = encoded.begin(); it != encoded.end(); it++)
+    {
+      if (buff_size < 8) 
+      {
+        buffer.push_back(*it);
+        buff_size++;
+      } else
+      {
+        bitset<8> c(buffer);
+        file.put(c.to_ulong()); 
+        buffer.clear();
+        buff_size = 0;
+      }
+    }
+    if (buff_size > 0)
+    {
+      while (buff_size < 8)
+      {
+        buffer.push_back('1');
+        buff_size++;
+      }
+      bitset<8> c(buffer);
+      file.put(c.to_ulong()); 
+      buffer.clear();
+      buff_size = 0;
+    }
   }
+  file.close();
 }
 
 string convert(string code, string texto)
@@ -39,7 +73,6 @@ string convert(string code, string texto)
         {
           char_C--;
         }
-
       }
     }
   }
