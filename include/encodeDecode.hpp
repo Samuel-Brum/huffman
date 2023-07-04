@@ -15,13 +15,6 @@ using namespace std;
 /// @return 0 caso tudo der certo, 1 caso contrário
 int encode(string code, string texto, ofstream &file);
 
-/// @brief Função que lê arquivo binário comprimido através do
-///        algoritmo de Huffman
-/// @param inFile Arquivo binário compactado
-/// @param outFile Arquivo de texto descompactado
-/// @return 0 caso tudo der certo, 1 caso contrário
-int decode(ifstream &inFile, ofstream &outFile);
-
 /// @brief Converte string de texto para string de '0's e '1's de acordo 
 ///        com uma cifra de Huffman
 /// @param code String contendo código de Huffman a ser utilizado

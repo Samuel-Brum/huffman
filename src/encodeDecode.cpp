@@ -27,8 +27,8 @@ int encode(string code, string texto, ofstream &file)
     file.write((char*) &code_size, sizeof(code_size));
     file.write((char*) &texto_size, sizeof(texto_size));
 
-    // Escreve cifra do código de Huffman
-    file.write(&code[0], code_size);
+    // Escreve cifra do código de Huffman (8 bits/ char)
+    file.write(code.c_str(), code_size);
   
     int buff_size = 0;
     string buffer;
@@ -45,6 +45,7 @@ int encode(string code, string texto, ofstream &file)
         file.put(c.to_ulong()); 
         buffer.clear();
         buff_size = 0;
+        it--;
       }
     }
 
@@ -63,6 +64,7 @@ int encode(string code, string texto, ofstream &file)
     }
   }
   file.close();
+  cout << encoded_size << endl << code_size << endl << texto_size << endl;
   return 0;
 }
 
@@ -89,64 +91,6 @@ string convert(string code, string texto)
     }
   }
   return textoCode;
-}
-
-inline bool get_bit(char c, int n)
-{
-  return (c >> n) & 1;
-}
-
-
-int decode(ifstream &inFile, ofstream &outFile)
-{
-  if (!inFile)
-  {
-    cout << "Erro ao abrir o arquivo" << endl;
-    return 1;
-  } 
-  else
-  {
-    unsigned int texto_size;
-    unsigned int code_size;
-    unsigned int encoded_size;
-
-    string code;
-    string texto;
-
-    // Lê os três ints do header
-    inFile.read(reinterpret_cast<char*>(&encoded_size), sizeof(encoded_size));
-    inFile.read(reinterpret_cast<char*>(&code_size), sizeof(code_size));
-    inFile.read(reinterpret_cast<char*>(&texto_size), sizeof(texto_size));
-
-    char c[code_size];
-
-    // Lê o código para decodificar
-    for (unsigned int i = 0; i < code_size; i++)
-    {
-      inFile.read(&c[i],sizeof(char));
-    }
-
-    code = c;
-
-    char t;
-    // Lê os bits comprimidos e armazena eles em um array de char
-    while (inFile.get(t)) 
-    {
-      texto += bitset<8>(t).to_string();
-    }
-    cout << "--------------------------------------------------------------------------------------------------------" << endl;
-    cout << "Cifra recuperada: " << code << endl;
-    //cout << "Text bin recuperado: " << texto << endl;
-    cout << code_size << endl;
-    cout << code.size() << endl;
-    HuffNode raiz = huffDecode(code);
-    string temp;
-    code.clear();
-    huffCode(raiz, code, temp);
-    //cout << revert(code, texto) << endl;
-    temp.clear();
-    printTree(raiz, temp);
-  }
 }
 
 

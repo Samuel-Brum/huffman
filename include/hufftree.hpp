@@ -38,27 +38,9 @@ void huffCode(HuffNode raiz, std::string &code, std::string &temp);
 /// @return Nó com raiz da árvore
 HuffNode huffDecode(std::string code);
 
-
+/// @brief Imprime as folhas da raiz da árvores com seus códigos no terminal
+/// @param raiz Raiz da árvore
+/// @param temp String temporária, passada por referência
 void printTree(HuffNode raiz, std::string &temp);
-/*
-void printTree(HuffNode raiz, std::string &temp)
-{
-  if (raiz.esq != nullptr)
-  {
-    temp.append("0");
-    printTree(*raiz.esq, temp);
-  } 
-  if (raiz.dir != nullptr)
-  {
-    temp.append("1");
-    printTree(*raiz.dir, temp);
-  }
-  if (raiz.esq == nullptr && raiz.dir == nullptr)
-  {
-    std::cout << raiz.c << ": " << temp << std::endl;
-  }
-  temp.pop_back();
-}
-*/
 
 #endif
