@@ -37,7 +37,7 @@ void huffman(HuffNode* dict)
 
     dict[i-1].freq = tempDir->freq + tempEsq->freq;
 
-    // "Apaga" último elementos do array
+    // "Apaga" último elemento do array
     dict[i-1].c = '\200';
 
     insertionSort(dict);
@@ -61,6 +61,80 @@ void huffCode(HuffNode raiz, string &code, string &temp)
   {
     code.push_back(raiz.c);
     code.append(temp);
+  }
+  temp.pop_back();
+}
+
+
+HuffNode huffDecode(string code) 
+{
+  HuffNode raiz;
+  HuffNode* ptr = &raiz;
+  string temp;
+
+  for (auto char_C = code.begin(); char_C != code.end(); char_C++)
+    {
+      if (*char_C == '0')
+      {
+       if (ptr->esq != nullptr)
+       {
+        ptr = ptr->esq;
+       }
+       else 
+       {
+        ptr->esq = new HuffNode;
+        ptr = ptr->esq;
+       }
+      }
+      if (*char_C == '1')
+      {
+        if (ptr->dir != nullptr)
+        {
+          ptr = ptr->dir;
+        }
+        else
+        {
+          ptr->dir = new HuffNode;
+          ptr = ptr->dir;
+        }
+      } 
+      if (*char_C != '0' && *char_C != '1')
+      {
+        if (temp.empty())
+        {
+          temp.push_back(*char_C);
+        }
+        else
+        {
+          ptr->c = temp[0];
+          ptr = &raiz;
+          temp.clear();
+          temp.push_back(*char_C);
+        }
+        
+      }
+      raiz.c = '\0';
+    }
+    ptr->c = temp[0];
+    temp.clear();
+  return raiz;
+}
+
+void printTree(HuffNode raiz, std::string &temp)
+{
+  if (raiz.esq != nullptr)
+  {
+    temp.append("0");
+    printTree(*raiz.esq, temp);
+  } 
+  if (raiz.dir != nullptr)
+  {
+    temp.append("1");
+    printTree(*raiz.dir, temp);
+  }
+  if (raiz.esq == nullptr && raiz.dir == nullptr)
+  {
+    std::cout << raiz.c << ": " << temp << std::endl;
   }
   temp.pop_back();
 }
