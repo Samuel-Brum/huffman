@@ -64,9 +64,6 @@ $(TEST_EXE): $(TEST_OBJ) $(HEADERS) # Alvo do executavel de testes
 	$(CXX) -Iinclude -o $(TEST_EXE) $(TEST_OBJ)
 
 all: $(EXE) $(TEST_EXE)
-
-run: $(EXE)
-	$(EXE)
 	
 test: $(TEST_EXE)	
 	$(TEST_EXE)
@@ -74,4 +71,4 @@ test: $(TEST_EXE)
 clean:
 	rm -f bin/* obj/*.o
 
-.PHONY: all run test clean
+.PHONY: all test clean

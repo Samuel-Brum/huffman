@@ -64,7 +64,7 @@ int encode(string code, string texto, ofstream &file)
     }
   }
   file.close();
-  cout << encoded_size << endl << code_size << endl << texto_size << endl;
+  //cout << encoded_size << endl << code_size << endl << texto_size << endl;
   return 0;
 }
 
